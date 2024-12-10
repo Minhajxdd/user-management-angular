@@ -1,13 +1,24 @@
-import { Component } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
+import { Component, signal } from '@angular/core';
+import { NavigationEnd, Router, RouterOutlet } from '@angular/router';
+import { HomePageComponent } from './features/home/pages/home-page/home-page.component';
+import { NavBarComponent } from './shared/partials/nav-bar/nav-bar.component';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet],
+  imports: [NavBarComponent, HomePageComponent, RouterOutlet],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })
 export class AppComponent {
-  title = 'crud-angular';
+  showNavbar = signal(true);
+
+  constructor(private router: Router) {
+    this.router.events.subscribe((event) => {
+      if (event instanceof NavigationEnd) {
+        this.showNavbar.set(!['/login', '/signup'].includes(event.url));
+      }
+    });
+  }
+
 }
