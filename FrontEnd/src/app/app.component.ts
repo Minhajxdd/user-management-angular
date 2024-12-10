@@ -13,6 +13,7 @@ import { NavBarComponent } from './shared/partials/nav-bar/nav-bar.component';
 export class AppComponent {
   showNavbar = signal(true);
 
+
   constructor(private router: Router) {
     this.router.events.subscribe((event) => {
       if (event instanceof NavigationEnd) {

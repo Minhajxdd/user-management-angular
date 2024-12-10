@@ -1,4 +1,4 @@
-import { Component, inject, signal } from '@angular/core';
+import { Component, DestroyRef, inject, signal } from '@angular/core';
 
 import { ReactiveFormsModule } from '@angular/forms'
 import { singupForm } from './form.signup';
@@ -18,6 +18,7 @@ export class SignupComponent {
 
   private authService: AuthService = inject(AuthService);
   private router: Router = inject(Router);
+  private destoryRef = inject(DestroyRef);
 
   onSubmit() {
     if (
@@ -64,11 +65,8 @@ export class SignupComponent {
         password: enteredPassword,
       }
 
-      this.authService.sentSignupRequest(data)
+      const subscription = this.authService.sentSignupRequest(data)
         .subscribe({
-          next: (data) => {
-            console.log(data);
-          },
           error: (err) => {
             this.errorText.set(err.error);
           },
@@ -76,6 +74,10 @@ export class SignupComponent {
             this.form.reset();
             this.router.navigate(['/login'], {replaceUrl: true});
           }
+        })
+
+        this.destoryRef.onDestroy(() => {
+          subscription.unsubscribe();
         })
     }
 

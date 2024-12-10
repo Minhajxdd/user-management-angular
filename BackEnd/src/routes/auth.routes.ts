@@ -40,7 +40,7 @@ router.post('/login', async (req: Request, res: Response): Promise<any> => {
 
         const { email, password } = req.body;
 
-        const user = await User.findOne({ email });
+        const user = await User.findOne({ email }).lean();
 
         if (!user) {
             return res.status(401).json({ error: 'NO USER Found' });
@@ -52,7 +52,12 @@ router.post('/login', async (req: Request, res: Response): Promise<any> => {
             return res.status(401).json({ error: 'Incorrect Password' });
         }
 
-        const token = jwt.sign({ userId: user._id }, 'your-secret-key', {
+        const payload = {
+            userId: user._id,
+            role: user.role
+        }
+
+        const token = jwt.sign(payload, 'your-secret-key', {
             expiresIn: '1h',
         });
 
