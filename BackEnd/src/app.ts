@@ -10,11 +10,10 @@ import connectDB from './db.js';
 connectDB();
 
 import authRoutes from './routes/auth.routes';
-import { error } from 'console';
-// const protectedRoute = require('./routes/protectedRoute');
+import userRoutes from './routes/user.routes.js';
 
 app.use('/auth', authRoutes);
-// app.use('/', protectedRoute);
+app.use('/', userRoutes);
 
 app.get('', (req, res) => {
   res.json({
