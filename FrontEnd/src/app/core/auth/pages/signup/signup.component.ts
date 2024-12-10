@@ -1,17 +1,23 @@
-import { Component, signal } from '@angular/core';
+import { Component, inject, signal } from '@angular/core';
 
 import { ReactiveFormsModule } from '@angular/forms'
 import { singupForm } from './form.signup';
+import { AuthService } from '../../auth.service';
+import { signupData } from '../../auth.model';
+import { Router, RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-signup',
   standalone: true,
-  imports: [ReactiveFormsModule],
+  imports: [RouterLink,ReactiveFormsModule],
   templateUrl: './signup.component.html',
 })
 export class SignupComponent {
   form = singupForm;
   errorText = signal('');
+
+  private authService: AuthService = inject(AuthService);
+  private router: Router = inject(Router);
 
   onSubmit() {
     if (
@@ -38,7 +44,7 @@ export class SignupComponent {
       return this.errorText.set('Please Enter valid password!')
     }
 
-    if(
+    if (
       this.form.controls.password.untouched ||
       this.form.controls.fullname.untouched ||
       this.form.controls.email.untouched
@@ -51,6 +57,29 @@ export class SignupComponent {
     const enteredEmail = this.form.value.email;
     const enteredPassword = this.form.value.password;
 
-    console.log(enteredFullName, enteredEmail, enteredPassword)
+    if (enteredFullName && enteredEmail && enteredPassword) {
+      const data: signupData = {
+        fullname: enteredFullName,
+        email: enteredEmail,
+        password: enteredPassword,
+      }
+
+      this.authService.sentSignupRequest(data)
+        .subscribe({
+          next: (data) => {
+            console.log(data);
+          },
+          error: (err) => {
+            this.errorText.set(err.error);
+          },
+          complete: () => {
+            this.form.reset();
+            this.router.navigate(['/login'], {replaceUrl: true});
+          }
+        })
+    }
+
+
   }
+
 }
