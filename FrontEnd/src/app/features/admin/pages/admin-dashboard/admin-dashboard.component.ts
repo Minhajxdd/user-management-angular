@@ -6,11 +6,12 @@ import { debounceTime, distinctUntilChanged, Subject, switchMap } from 'rxjs';
 import { EditFormComponent } from './edit-form/edit-form.component';
 import { AuthService } from '../../../../core/auth/auth.service';
 import { Router } from '@angular/router';
+import { AddFormComponent } from './add-form/add-form.component';
 
 @Component({
   selector: 'app-admin-dashboard',
   standalone: true,
-  imports: [EditFormComponent, AdminDashboardUsersComponent],
+  imports: [AddFormComponent, EditFormComponent, AdminDashboardUsersComponent],
   templateUrl: './admin-dashboard.component.html',
   styleUrl: './admin-dashboard.component.css'
 })
@@ -70,6 +71,15 @@ export class AdminDashboardComponent implements OnInit {
   toggleEditFrom() {
     this.openEditForm.set(!this.openEditForm());
     if(!this.openEditForm()) {
+      this.loadData();
+    }
+  }
+
+  openAddform = signal(false);
+
+  toggleAddForm() {
+    this.openAddform.set(!this.openAddform());
+    if(!this.openAddform()) {
       this.loadData();
     }
   }

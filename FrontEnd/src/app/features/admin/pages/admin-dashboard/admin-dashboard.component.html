@@ -50,6 +50,7 @@
 
     <div class="mt-4 text-right">
       <button
+      (click)="toggleAddForm()"
         class="px-4 py-2 text-sm font-semibold text-white bg-blue-600 rounded hover:bg-blue-700 focus:outline-none focus:ring focus:ring-blue-300"
       >
         Add New User
@@ -62,5 +63,8 @@
     <app-edit-form (close)="toggleEditFrom()" />
   }
 
+  @if(openAddform()) {
+    <app-add-form (close)="toggleAddForm()"></app-add-form>
+  }
 
 </div>

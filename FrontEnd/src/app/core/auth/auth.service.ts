@@ -12,6 +12,7 @@ export class AuthService {
     private http = inject(HttpClient);
 
     private isLoggedIn: boolean = false;
+    private isAdmin: boolean = false;
 
     sentSignupRequest(data: signupData) {
         const url = `http://localhost:3000/auth/register`;
@@ -58,8 +59,20 @@ export class AuthService {
         }
     }
 
+    checkAdmin(token: string | null) {
+        if(token && typeof token === 'string') {
+            const decodedToken: {role: string} = jwtDecode(token);
+            if(decodedToken.role === 'admin') {
+                this.isAdmin = true;
+            } else {
+                this.isAdmin = false;
+            }
+        }
+    }
+
     isAuthenticated(): boolean {
         const token = localStorage.getItem('JWT_Token');
+        this.checkAdmin(token);
         if (token && this.isTokenValid(token)) {
             this.isLoggedIn = true;
             return true;
@@ -68,5 +81,8 @@ export class AuthService {
         return false;
     }
 
+    isAdminAuthenticated(): boolean {
+        return this.isAdmin;
+    }
 
 } 

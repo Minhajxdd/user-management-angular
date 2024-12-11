@@ -13,11 +13,15 @@ import { NavBarComponent } from './shared/partials/nav-bar/nav-bar.component';
 export class AppComponent {
   showNavbar = signal(true);
 
+  needNavBar = [
+    '/',
+    '/profile'
+  ]
 
   constructor(private router: Router) {
     this.router.events.subscribe((event) => {
       if (event instanceof NavigationEnd) {
-        this.showNavbar.set(!['/login', '/signup', '/admin/dashboard'].includes(event.url));
+        this.showNavbar.set(this.needNavBar.includes(event.url));
       }
     });
   }

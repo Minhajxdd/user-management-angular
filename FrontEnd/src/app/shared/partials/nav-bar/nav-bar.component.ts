@@ -15,7 +15,8 @@ import { getImageUrl } from '../../../features/home/store/user.select';
 export class NavBarComponent implements OnInit{
   profileImage = signal('https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png');
 
-  
+  isAuthenticatedAdmin = signal(inject(AuthService).isAdminAuthenticated());
+
   private authService = inject(AuthService);
   private router = inject(Router);
   private store = inject<Store<{user: userModel}>>(Store);

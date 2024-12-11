@@ -27,3 +27,19 @@ export const AuthGuardServiceLogged: CanActivateFn = () => {
         return true;
     }
 }
+
+
+export const AuthGuardServiceValidAdmin: CanActivateFn = () => {
+
+    let isAuthenticated = inject(AuthService).isAdminAuthenticated();
+    let router = inject(Router);
+
+    if(isAuthenticated) {
+        return true;
+    } else {
+        router.navigate(['']);
+        return false;
+    }
+    
+
+}
