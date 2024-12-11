@@ -17,7 +17,9 @@
     <div class="flex justify-between items-center mb-4">
       <h2 class="text-lg font-semibold text-gray-800">Manage Users</h2>
       <input
-        type="text"
+      #usersearch
+        (input)="searchUser(usersearch.value)"
+      type="text"
         placeholder="Search users..."
         class="px-4 py-2 text-sm border rounded w-1/3 focus:outline-none focus:ring focus:ring-blue-300"
       />
@@ -35,19 +37,15 @@
           </tr>
         </thead>
         <tbody class="text-gray-600 text-sm font-light">
-
           @for (user of userData(); track user._id) {
 
           <tr
-           
             [userData]="user"
             [index]="$index"
             admin-dashborad-tr
             class="border-b border-gray-200 hover:bg-gray-100"
-          >
-
-        </tr>
-            }
+          ></tr>
+          }
         </tbody>
       </table>
     </div>

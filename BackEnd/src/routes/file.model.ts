@@ -10,3 +10,10 @@ export interface fileModel {
     size: number
 
 }
+
+export interface queryModel {
+    fullname?: RegExp,
+    role: {
+        $ne: string;
+    }
+}

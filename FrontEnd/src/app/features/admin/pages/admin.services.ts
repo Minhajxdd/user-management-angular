@@ -1,6 +1,6 @@
 import { HttpClient } from "@angular/common/http";
 import { inject, Injectable } from "@angular/core";
-import { tap } from "rxjs";
+import { debounceTime, tap } from "rxjs";
 import { userResponseData } from "./admin-dashboard/admin.mode";
 
 @Injectable({
@@ -10,9 +10,17 @@ export class AdminDashBoardService {
 
     private http = inject(HttpClient);
 
-    getUserData() {
-        const url = `http://localhost:3000/admin/userData`;
-        return this.http.get<{data: userResponseData[]}>(url);
+    getUserData(keyword?: string) {
+        let url = `http://localhost:3000/admin/userData`;
+        if(keyword) {
+            url = `http://localhost:3000/admin/userData?keyword=${keyword}`
+        }
+
+        return this.http.get<{data: userResponseData[]}>(url)
+        .pipe(
+            debounceTime(1000)
+        )
+        
     }
 
     toggleBlock(userId: string) {
