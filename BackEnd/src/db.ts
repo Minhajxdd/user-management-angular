@@ -2,7 +2,7 @@ import mongoose from 'mongoose';
 
 async function connectDB() {
     try {
-        await mongoose.connect(`mongodb://localhost:27017/user`);
+        await mongoose.connect(`mongodb://localhost:27017/user-management-angular`);
         console.log('MongoDB connected');
     } catch (error) {
         if (error instanceof Error) {

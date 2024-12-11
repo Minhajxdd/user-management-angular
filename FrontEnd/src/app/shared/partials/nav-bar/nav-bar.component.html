@@ -5,9 +5,9 @@
 
     <div class="flex items-center space-x-4">
       <div class="relative group">
-
+        
         <img
-          src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png"
+          [src]="profileImage()"
           alt="Profile"
           class="w-8 h-8 rounded-full border-2 border-white cursor-pointer"
         />
@@ -16,7 +16,7 @@
           class="absolute right-0 mt-2 w-40 bg-white text-black rounded shadow-md opacity-0 group-hover:opacity-100 transition-opacity duration-200"
         >
           <a
-            href="/profile"
+            routerLink="/profile"
             class="block px-4 py-2 hover:bg-gray-200 text-sm"
           >
             View Profile

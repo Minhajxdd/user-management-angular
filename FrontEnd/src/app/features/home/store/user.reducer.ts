@@ -1,6 +1,6 @@
 import { createReducer, on } from "@ngrx/store";
 import { userState } from "./user.state";
-import { loadUserData, loadUserDataSuccess } from "./user.action";
+import { loadUserData, loadUserDataSuccess, uploadPhotoSuccess } from "./user.action";
 
 const _userReducer = createReducer(
     userState,
@@ -8,6 +8,12 @@ const _userReducer = createReducer(
         return {
             ...action
         }
+    }),
+    on(uploadPhotoSuccess, (state, action) => {
+        return {
+            ...state,
+            profileImage: action.imageUrl
+        };
     })
 )
 

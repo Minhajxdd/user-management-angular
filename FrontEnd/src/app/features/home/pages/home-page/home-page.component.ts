@@ -19,6 +19,7 @@ export class HomePageComponent implements OnInit {
   constructor(private store: Store<{ user: userModel }>) { }
 
   ngOnInit(): void {
+
     this.store.dispatch(loadUserData());
     
     this.userName$ = this.store.select(getUserName);

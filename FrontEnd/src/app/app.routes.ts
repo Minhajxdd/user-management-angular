@@ -3,6 +3,7 @@ import { HomePageComponent } from './features/home/pages/home-page/home-page.com
 import { SignupComponent } from './core/auth/pages/signup/signup.component';
 import { LoginComponent } from './core/auth/pages/login/login.component';
 import { AuthGuardService, AuthGuardServiceLogged } from './core/auth/auth.guard';
+import { ProfilePageComponent } from './features/home/pages/profile-page/profile-page.component';
 
 export const routes: Routes = [
     {
@@ -19,5 +20,9 @@ export const routes: Routes = [
         path: 'login',
         component: LoginComponent,
         canActivate: [AuthGuardServiceLogged]
+    },
+    {
+        path: 'profile',
+        component: ProfilePageComponent
     }
 ];

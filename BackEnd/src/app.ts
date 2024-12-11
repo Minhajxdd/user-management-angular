@@ -1,10 +1,14 @@
 import express from 'express';
+import path from 'path';
 import cors from 'cors';
 
 const app = express();
 
 app.use(cors());
 app.use(express.json());
+
+
+app.use('/uploads', express.static(path.join(__dirname, 'public/uploads')));
 
 import connectDB from './db.js';
 connectDB();
@@ -14,12 +18,6 @@ import userRoutes from './routes/user.routes.js';
 
 app.use('/auth', authRoutes);
 app.use('/', userRoutes);
-
-app.get('', (req, res) => {
-  res.json({
-    data: 'testing the server'
-  });
-})
 
 const PORT = process.env.PORT || 3000;
 

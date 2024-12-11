@@ -4,3 +4,7 @@ export interface userModel {
     profileImage: string;
     role: string;
 }
+
+export interface imageModel {
+    imageUrl: string
+}
