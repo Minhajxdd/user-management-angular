@@ -1,0 +1,27 @@
+<td class="py-3 px-6">{{ index() + 1 }}</td>
+<td class="py-3 px-6">{{ userData.fullname }}</td>
+<td class="py-3 px-6">{{ userData.email }}</td>
+<td class="py-3 px-6">
+  <button
+    class="px-3 py-1 text-xs text-white bg-green-500 rounded hover:bg-green-600"
+  >
+    Edit
+  </button>
+
+  @if (userData.isBlocked) {
+  <button
+    (click)="onToggleBlock()"
+    class="px-3 py-1 text-xs text-white bg-blue-500 rounded hover:bg-blue-600"
+  >
+    UnBlock
+  </button>
+
+  } @else {
+  <button
+    (click)="onToggleBlock()"
+    class="px-3 py-1 text-xs text-white bg-red-500 rounded hover:bg-red-600"
+  >
+    Block
+  </button>
+  }
+</td>

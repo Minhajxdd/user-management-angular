@@ -1,4 +1,4 @@
-import { Component, DestroyRef, inject, signal } from '@angular/core';
+import { Component, DestroyRef, inject, OnDestroy, signal } from '@angular/core';
 
 import { ReactiveFormsModule } from '@angular/forms'
 import { singupForm } from './form.signup';
@@ -12,7 +12,7 @@ import { Router, RouterLink } from '@angular/router';
   imports: [RouterLink,ReactiveFormsModule],
   templateUrl: './signup.component.html',
 })
-export class SignupComponent {
+export class SignupComponent implements OnDestroy {
   form = singupForm;
   errorText = signal('');
 
@@ -80,8 +80,10 @@ export class SignupComponent {
           subscription.unsubscribe();
         })
     }
+  }
 
-
+  ngOnDestroy(): void {
+    this.form.reset();
   }
 
 }

@@ -17,7 +17,7 @@ export class AppComponent {
   constructor(private router: Router) {
     this.router.events.subscribe((event) => {
       if (event instanceof NavigationEnd) {
-        this.showNavbar.set(!['/login', '/signup'].includes(event.url));
+        this.showNavbar.set(!['/login', '/signup', '/admin/dashboard'].includes(event.url));
       }
     });
   }

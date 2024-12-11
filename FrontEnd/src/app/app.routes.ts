@@ -4,6 +4,8 @@ import { SignupComponent } from './core/auth/pages/signup/signup.component';
 import { LoginComponent } from './core/auth/pages/login/login.component';
 import { AuthGuardService, AuthGuardServiceLogged } from './core/auth/auth.guard';
 import { ProfilePageComponent } from './features/home/pages/profile-page/profile-page.component';
+import { NotFoundComponent } from './shared/pages/not-found/not-found.component';
+import { AdminDashboardComponent } from './features/admin/pages/admin-dashboard/admin-dashboard.component';
 
 export const routes: Routes = [
     {
@@ -24,5 +26,14 @@ export const routes: Routes = [
     {
         path: 'profile',
         component: ProfilePageComponent
+    },
+    {
+        path: 'admin/dashboard',
+        component: AdminDashboardComponent
+    },
+    {
+        path: '**',
+        component: NotFoundComponent
     }
+
 ];

@@ -1,4 +1,4 @@
-import { Component, inject, signal } from '@angular/core';
+import { Component, inject, OnDestroy, signal } from '@angular/core';
 import { Router, RouterLink } from '@angular/router';
 import { loginForm } from './form.login';
 import { ReactiveFormsModule } from '@angular/forms';
@@ -11,7 +11,7 @@ import { AuthService } from '../../auth.service';
   templateUrl: './login.component.html',
   styleUrl: './login.component.css'
 })
-export class LoginComponent {
+export class LoginComponent implements OnDestroy {
   form = loginForm;
   errorText = signal('');
 
@@ -63,6 +63,10 @@ export class LoginComponent {
         })
 
     }
-
   }
+
+  ngOnDestroy(): void {
+    this.form.reset();
+  }
+
 }

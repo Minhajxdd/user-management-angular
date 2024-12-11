@@ -3,6 +3,7 @@ import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 
 import User from '../Models/user.model';
+import { error } from 'console';
 
 const router = express.Router();
 
@@ -43,6 +44,10 @@ router.post('/login', async (req: Request, res: Response): Promise<any> => {
 
         if (!user) {
             return res.status(401).json({ error: 'No User Found' });
+        }
+        
+        if( user.isBlocked) {
+            return res.status(401).json({ error: 'User is Blocked' })
         }
 
         const passwordMatch = await bcrypt.compare(password, user.password);

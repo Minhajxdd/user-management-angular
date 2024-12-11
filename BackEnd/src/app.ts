@@ -15,8 +15,10 @@ connectDB();
 
 import authRoutes from './routes/auth.routes';
 import userRoutes from './routes/user.routes.js';
+import adminRoutes from './routes/admin.routes.js';
 
 app.use('/auth', authRoutes);
+app.use('/admin', adminRoutes);
 app.use('/', userRoutes);
 
 const PORT = process.env.PORT || 3000;

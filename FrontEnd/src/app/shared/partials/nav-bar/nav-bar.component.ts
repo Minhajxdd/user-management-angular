@@ -3,14 +3,12 @@ import { AuthService } from '../../../core/auth/auth.service';
 import { Router, RouterLink } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { userModel } from '../../../features/home/store/user.model';
-import { Observable } from 'rxjs';
 import { getImageUrl } from '../../../features/home/store/user.select';
-import { AsyncPipe } from '@angular/common';
 
 @Component({
   selector: 'app-nav-bar',
   standalone: true,
-  imports: [RouterLink, AsyncPipe],
+  imports: [RouterLink],
   templateUrl: './nav-bar.component.html',
   styleUrl: './nav-bar.component.css'
 })
