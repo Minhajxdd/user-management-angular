@@ -2,7 +2,6 @@ import express, { Request, Response } from 'express';
 
 import User from '../Models/user.model';
 import verifyToken from '../Middleware/authMiddleWare';
-import { BlobOptions } from 'buffer';
 import { queryModel } from './file.model';
 
 
@@ -59,5 +58,34 @@ router.patch('/userblock', verifyToken, verifyToken, async (req, res): Promise<a
     }
 });
 
+
+router.patch('/updateUser', verifyToken, verifyToken, async (req, res): Promise<any> => {
+    try {
+        const { userId, fullname, email } = req.body;
+
+        if (!userId || !fullname || !email) {
+            res.status(400).json({ error: 'Invaid Input' });
+            return;
+        }
+
+        const userData = await User.findById(userId, {password: 0});
+
+        if (!userData) {
+            res.status(400).json({ error: 'Invalid input' });
+            return;
+        }
+
+        userData.fullname = fullname;
+        userData.email = email;
+
+        userData.save();
+
+        res.json({ userData });
+
+    } catch (err: any) {
+        res.status(500).json({ error: err.message })
+        console.log(err)
+    }
+});
 
 export default router;

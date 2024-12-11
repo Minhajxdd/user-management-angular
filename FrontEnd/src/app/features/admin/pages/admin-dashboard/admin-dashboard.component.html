@@ -1,19 +1,17 @@
 <div class="min-h-screen bg-gray-100 p-4">
-  <!-- Admin Dashboard Header -->
   <header
     class="flex items-center justify-between py-4 px-6 bg-gradient-to-r from-blue-500 to-purple-600 shadow-md"
   >
     <h1 class="text-2xl font-bold text-white">Admin Dashboard</h1>
     <button
+    (click)="logout()"
       class="px-4 py-2 text-sm font-semibold text-blue-600 bg-white rounded hover:bg-gray-100 focus:outline-none focus:ring focus:ring-white"
     >
       Logout
     </button>
   </header>
 
-  <!-- Search and User Table Section -->
   <main class="mt-6">
-    <!-- Search Bar -->
     <div class="flex justify-between items-center mb-4">
       <h2 class="text-lg font-semibold text-gray-800">Manage Users</h2>
       <input
@@ -25,7 +23,6 @@
       />
     </div>
 
-    <!-- User Table -->
     <div class="bg-white shadow-md rounded overflow-hidden">
       <table class="min-w-full table-auto">
         <thead class="bg-gray-200 text-gray-600 text-sm uppercase font-medium">
@@ -40,6 +37,7 @@
           @for (user of userData(); track user._id) {
 
           <tr
+          (editClicked)="toggleEditFrom()"
             [userData]="user"
             [index]="$index"
             admin-dashborad-tr
@@ -50,7 +48,6 @@
       </table>
     </div>
 
-    <!-- Add User Button -->
     <div class="mt-4 text-right">
       <button
         class="px-4 py-2 text-sm font-semibold text-white bg-blue-600 rounded hover:bg-blue-700 focus:outline-none focus:ring focus:ring-blue-300"
@@ -60,49 +57,10 @@
     </div>
   </main>
 
-  <!-- Popup Form Component -->
-  <div
-    id="popup-form"
-    class="fixed inset-0 bg-black bg-opacity-50 items-center justify-center hidden"
-  >
-    <div class="bg-white rounded shadow-lg p-6 w-full max-w-md">
-      <h2 class="text-lg font-bold mb-4">Create / Edit User</h2>
-      <form>
-        <div class="mb-4">
-          <label for="name" class="block text-sm font-medium text-gray-700"
-            >Name</label
-          >
-          <input
-            type="text"
-            id="name"
-            class="mt-1 block w-full px-4 py-2 border rounded focus:outline-none focus:ring focus:ring-blue-300"
-          />
-        </div>
-        <div class="mb-4">
-          <label for="email" class="block text-sm font-medium text-gray-700"
-            >Email</label
-          >
-          <input
-            type="email"
-            id="email"
-            class="mt-1 block w-full px-4 py-2 border rounded focus:outline-none focus:ring focus:ring-blue-300"
-          />
-        </div>
-        <div class="flex justify-end">
-          <button
-            type="button"
-            class="px-4 py-2 text-sm text-white bg-red-500 rounded hover:bg-red-600 focus:outline-none focus:ring focus:ring-red-300 mr-2"
-          >
-            Cancel
-          </button>
-          <button
-            type="submit"
-            class="px-4 py-2 text-sm text-white bg-blue-600 rounded hover:bg-blue-700 focus:outline-none focus:ring focus:ring-blue-300"
-          >
-            Save
-          </button>
-        </div>
-      </form>
-    </div>
-  </div>
+
+  @if(openEditForm()) {
+    <app-edit-form (close)="toggleEditFrom()" />
+  }
+
+
 </div>

@@ -1,7 +1,7 @@
 import { HttpClient } from "@angular/common/http";
 import { inject, Injectable } from "@angular/core";
 import { debounceTime, tap } from "rxjs";
-import { userResponseData } from "./admin-dashboard/admin.mode";
+import { userEditData, userResponseData } from "./admin-dashboard/admin.mode";
 
 @Injectable({
     providedIn: 'root'
@@ -26,6 +26,11 @@ export class AdminDashBoardService {
     toggleBlock(userId: string) {
         const url = 'http://localhost:3000/admin/userblock';
         return this.http.patch(url, {userId});
+    }
+
+    updateUser(data: userEditData) {
+        const url = 'http://localhost:3000/admin/updateUser'
+        return this.http.patch(url, data);
     }
 
 }
