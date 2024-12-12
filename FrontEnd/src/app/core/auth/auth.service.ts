@@ -82,6 +82,8 @@ export class AuthService {
     }
 
     isAdminAuthenticated(): boolean {
+        const token = localStorage.getItem('JWT_Token');
+        this.checkAdmin(token);
         return this.isAdmin;
     }
 
